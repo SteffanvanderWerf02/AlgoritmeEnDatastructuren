@@ -5,6 +5,7 @@ public class Example {
         for (int i = 1; i <= factorial(n); i++) {
             System.out.println("Hey - I'm busy looking at: " + i);
         }
+        return 0;
     }
 
 }

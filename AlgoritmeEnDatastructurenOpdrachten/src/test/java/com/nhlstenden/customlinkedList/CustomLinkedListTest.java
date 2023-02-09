@@ -1,5 +1,4 @@
 package com.nhlstenden.customlinkedList;
-import com.nhlstenden.customlinkedList.exeptions.IndexIsOutOfBounds;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,7 @@ class CustomLinkedListTest {
         list = new CustomLinkedList();
     }
     @Test
-    void add() {
+    void addTest() {
         // add node to list
         list.add(0, 300);
 
@@ -46,22 +45,50 @@ class CustomLinkedListTest {
     }
 
     @Test
-    void size() {
+    void sizeTest() {
         list.add(0, 300);
         assertEquals(1, list.size());
-        list.add(0, 300);
-        list.add(0, 300);
+        list.add(0, 301);
+        list.add(0, 302);
         assertEquals(3, list.size());
+        list.add(1, 304);
+        assertEquals(4, list.size());
     }
 
     @Test
-    void remove() {
-        list.add(0, 1);
-        list.add(1, 2);
-        list.add(2, 3);
+    void removeTest() {
+        assertTrue(list.add(0, 1));
+        assertTrue(list.add(1, 2));
+        assertTrue(list.add(2, 3));
 
-        list.remove(3);
+        assertFalse(list.remove(3));
+        assertEquals(3, list.size());
+
+        assertTrue(list.remove(2));
+        assertEquals(2, list.size());
+
+        assertTrue(list.remove(0));
+        assertEquals(1, list.size());
     }
 
 
+    @Test
+    void printListValuesToStringTest() {
+        assertTrue(list.add(0, 1));
+        assertTrue(list.add(1, 2));
+        assertTrue(list.add(2, 3));
+
+        list.printListValuesToString();
+    }
+
+    @Test
+    void addValueToTailTest() {
+        list.addValueToTail(1);
+        assertTrue(list.add(1,69));
+        list.addValueToTail(3);
+
+        assertEquals(3, list.size());
+        assertEquals(1, list.getHead().getValue());
+        assertEquals(3, list.getTail().getValue());
+    }
 }

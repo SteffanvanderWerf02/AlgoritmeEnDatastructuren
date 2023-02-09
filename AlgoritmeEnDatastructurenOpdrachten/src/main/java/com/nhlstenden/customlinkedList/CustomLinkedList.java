@@ -1,4 +1,5 @@
 package com.nhlstenden.customlinkedList;
+
 import java.util.LinkedList;
 
 public class CustomLinkedList {
@@ -12,65 +13,89 @@ public class CustomLinkedList {
         this.tail = null;
         this.size = 0;
     }
+
     public int size() {
         return this.size;
     }
 
     //Getters for head & tail
     public Node getHead() {
-        return head;
+        return this.head;
     }
+
     public Node getTail() {
-        return tail;
+        return this.tail;
     }
 
     public Node getNode(int index) {
-        Node currentNode = this.head;
+        if (this.checkIfIndexIsOutOfBounds(index)) {
+            Node currentNode = this.head;
+            for (int i = 0; i < index; i++) {
+                currentNode = currentNode.getNext();
+            }
 
-        for (int i = 0; i < index; i++) {
-            currentNode = currentNode.getNext();
+            return currentNode;
         }
 
-        return currentNode;
+        return null;
     }
 
-    public void add(int index, int value) {
-        if (index < 0 || index > this.size) {
+    public boolean checkIfIndexIsOutOfBounds(int index) {
+        if (this.size < index) {
             throw new IndexOutOfBoundsException();
         }
 
-        Node newNode = new Node(value);
-
-        if (index == 0) {
-            newNode.setNext(this.head);
-            this.head = newNode;
-        } else if (index == this.size) {
-            this.tail = newNode;
-            this.tail.setNext(newNode);
-        } else {
-            Node previousNode = this.getNode(index - 1);
-            Node nextNode = previousNode.getNext();
-
-            previousNode.setNext(newNode);
-            newNode.setNext(nextNode);
-        }
-
-        this.size++;
+        return true;
     }
-    public void remove(int index) {
-        if (index < 0 || index >= this.size) {
-            throw new IndexOutOfBoundsException();
+
+    public boolean add(int index, int value) {
+        //Check if index is out of bounds
+        if (this.checkIfIndexIsOutOfBounds(index)) {
+            // create new node
+            Node newNode = new Node(value);
+
+            if (index == 0 && this.head == null) {
+                this.head = newNode;
+            } else if (index == 1) {
+                this.tail = newNode;
+                this.head.setNext(newNode);
+            } else {
+                //Check if size is same as index or of tail is net set yet
+                if (index == this.size || this.tail == null) {
+                    this.tail = newNode;
+                }
+                //Get previous node and get the reference to next node
+                Node previousNode = this.getNode(index - 1);
+                Node nextNode = previousNode.getNext();
+
+                //Put new node in refrence of previous node and set the next node refrence to the old next node
+                previousNode.setNext(newNode);
+                newNode.setNext(nextNode);
+            }
+            this.size++;
+
+            return true;
         }
 
-        if (index == 0) {
-            this.head = this.head.getNext();
-        } else {
-            Node previousNode = this.getNode(index - 1);
-            Node nextNode = previousNode.getNext().getNext();
+        return false;
+    }
 
-            previousNode.setNext(nextNode);
+    public boolean remove(int index) {
+        if (checkIfIndexIsOutOfBounds(index)) {
+            if (index == 0) {
+                this.head = this.head.getNext();
+            } else {
+                Node previousNode = this.getNode(index - 1);
+                Node nextNode = previousNode.getNext().getNext();
+
+                previousNode.setNext(nextNode);
+            }
+
+            this.size--;
+
+            return true;
         }
 
-        this.size--;
+        return false;
     }
 }

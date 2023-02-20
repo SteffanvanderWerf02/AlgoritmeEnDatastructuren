@@ -100,8 +100,6 @@ public class CustomLinkedList {
                 }
             }
 
-
-
             return true;
         }
 

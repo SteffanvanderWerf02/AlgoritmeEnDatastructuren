@@ -7,27 +7,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomBinarytreeTest {
 
-    CustomBinarytree tree;
+    CustomBinarytree binarytree;
+    CustomBinarySearchTree searchTree;
     @BeforeEach
     void setUp() {
-        tree = new CustomBinarytree();
+        binarytree = new CustomBinarytree();
+        searchTree = new CustomBinarySearchTree();
 
     }
 
     @Test
-    void addWhile() {
-        tree.add(5);
-        tree.add(3);
-        tree.add(7);
-        tree.add(1);
-        tree.add(4);
+    void addBinary() {
+        binarytree.add(5, binarytree.getRoot());
+        binarytree.add(50,binarytree.getRoot());
+        binarytree.add(51,binarytree.getRoot());
+        binarytree.add(53,binarytree.getRoot());
+        binarytree.add(54,binarytree.getRoot());
+        binarytree.add(55,binarytree.getRoot());
+        binarytree.add(56,binarytree.getRoot());
     }
+
     @Test
-    void addReq() {
-        tree.add(5, tree.getHead());
-        tree.add(23,tree.getHead());
-        tree.add(2321,tree.getHead());
-        tree.add(24323,tree.getHead());
-        tree.add(34,tree.getHead());
+    void addSearchBinary() {
+        searchTree.add(5, searchTree.getRoot());
+        searchTree.add(50,searchTree.getRoot());
+        searchTree.add(51,searchTree.getRoot());
+        searchTree.add(53,searchTree.getRoot());
+        searchTree.add(54,searchTree.getRoot());
+        searchTree.add(55,searchTree.getRoot());
+        searchTree.add(56,searchTree.getRoot());
+        searchTree.add(26,searchTree.getRoot());
+        searchTree.add(2,searchTree.getRoot());
     }
+
 }
